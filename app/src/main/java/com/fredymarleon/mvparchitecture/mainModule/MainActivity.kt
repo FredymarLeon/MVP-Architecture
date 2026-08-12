@@ -1,4 +1,4 @@
-package com.fredymarleon.mvparchitecture
+package com.fredymarleon.mvparchitecture.mainModule
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,7 +8,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.fredymarleon.mvparchitecture.EventBus
+import com.fredymarleon.mvparchitecture.ResultAdapter
+import com.fredymarleon.mvparchitecture.SportEvent
 import com.fredymarleon.mvparchitecture.databinding.ActivityMainBinding
+import com.fredymarleon.mvparchitecture.getAdEventsInRealtime
+import com.fredymarleon.mvparchitecture.getResultEventsInRealtime
+import com.fredymarleon.mvparchitecture.someTime
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
