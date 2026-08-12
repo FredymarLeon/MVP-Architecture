@@ -1,4 +1,4 @@
-package com.fredymarleon.mvparchitecture
+package com.fredymarleon.mvparchitecture.mainModule
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.fredymarleon.mvparchitecture.R
+import com.fredymarleon.mvparchitecture.SportEvent
 import com.fredymarleon.mvparchitecture.databinding.ItemEventBinding
-import com.fredymarleon.mvparchitecture.mainModule.OnClickListener
+
 
 class ResultAdapter(private val listener: OnClickListener) :
     RecyclerView.Adapter<ResultAdapter.ViewHolder>() {

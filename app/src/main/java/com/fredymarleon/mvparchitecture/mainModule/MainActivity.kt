@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fredymarleon.mvparchitecture.EventBus
-import com.fredymarleon.mvparchitecture.ResultAdapter
 import com.fredymarleon.mvparchitecture.SportEvent
 import com.fredymarleon.mvparchitecture.databinding.ActivityMainBinding
 import com.fredymarleon.mvparchitecture.getAdEventsInRealtime
