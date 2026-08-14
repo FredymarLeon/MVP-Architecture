@@ -1,6 +1,7 @@
-package com.fredymarleon.mvparchitecture.mainModule
+package com.fredymarleon.mvparchitecture.mainModule.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -14,6 +15,7 @@ import com.fredymarleon.mvparchitecture.databinding.ActivityMainBinding
 import com.fredymarleon.mvparchitecture.getAdEventsInRealtime
 import com.fredymarleon.mvparchitecture.getResultEventsInRealtime
 import com.fredymarleon.mvparchitecture.someTime
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
@@ -55,9 +57,9 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     private fun setupSwipeRefresh() {
         binding.srlResults.setOnRefreshListener {
-            adapter.clear()
+            //adapter.clear()
             getEvents()
-            binding.btnAd.isVisible = true
+            //binding.btnAd.isVisible = true
         }
     }
 
@@ -65,14 +67,14 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         binding.btnAd.run {
             setOnClickListener {
                 lifecycleScope.launch {
-                    binding.srlResults.isRefreshing = true
+                    //binding.srlResults.isRefreshing = true
                     val events = getAdEventsInRealtime()
                     EventBus.instance().publishEvent(events.first())
                 }
             }
             setOnLongClickListener { view ->
                 lifecycleScope.launch {
-                    binding.srlResults.isRefreshing = true
+                    // binding.srlResults.isRefreshing = true
                     EventBus.instance().publishEvent(SportEvent.CloseAdEvent)
                     view.isVisible = false
                 }
@@ -93,15 +95,43 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        binding.srlResults.isRefreshing = true
+        // binding.srlResults.isRefreshing = true
         getEvents()
     }
 
     override fun onClick(result: SportEvent.ResultSuccess) {
-        binding.srlResults.isRefreshing = true
+        //binding.srlResults.isRefreshing = true
         lifecycleScope.launch {
             // EventBus.instance().publishEvent(SportEvent.SaveEvent)
-           // SportService.instance().saveResult(result)
+            // SportService.instance().saveResult(result)
         }
+    }
+
+    /*
+    * ViewLayer
+    * */
+
+    fun add(event: SportEvent.ResultSuccess) {
+        adapter.add(event)
+    }
+
+    fun clearAdapter() {
+        adapter.clear()
+    }
+
+    fun showAdUI(isVisible: Boolean) {
+        binding.btnAd.isVisible = isVisible
+    }
+
+    fun showProgress(isVisible: Boolean) {
+        binding.srlResults.isRefreshing = isVisible
+    }
+
+    fun showToast(msg: String) {
+        Toast.makeText(this@MainActivity, msg, Toast.LENGTH_LONG).show()
+    }
+
+    fun showSnackbar(msj: String) {
+        Snackbar.make(binding.root, msj, Snackbar.LENGTH_LONG).show()
     }
 }

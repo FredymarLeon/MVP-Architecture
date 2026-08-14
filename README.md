@@ -30,11 +30,11 @@ Capa Model / Repository
 -----------------------
 Crear MainRepository con 4 responsabilidades (métodos):
 1. getEvents(): consulta general sin parámetros que devuelve la lista de resultados.
-2. suspend fun saveResult(event: SportEvent.ResultSuccess): guarda un resultado.
+2. `suspend fun saveResult(event: SportEvent.ResultSuccess)`: guarda un resultado.
 3. registerAd(): manejar click corto (registro/mostrar publicidad).
 4. closeAd(): manejar click largo (cerrar publicidad).
 
-Internamente el repositorio tendrá una función privada publishEventRepository(event: SportEvent) que centraliza la publicación al EventBus: EventBus.instance().publishEvent(event). Todos los métodos de datos llamarán a publishEventRepository con el evento correspondiente.
+Internamente, el repositorio tendrá una función privada publishEventRepository(event: SportEvent) que centraliza la publicación al EventBus: EventBus.instance().publishEvent(event). Todos los métodos de datos llamarán a publishEventRepository con el evento correspondiente.
 
 Capa Presentador
 ----------------
@@ -46,6 +46,18 @@ Capa Vista (Activity / Fragment)
 -------------------------------
 - Sin lógica de negocio. Solo reacciona a interacciones de usuario y comandos del Presenter.
 - Delegar clicks y acciones UI al Presenter.
+- El package recibe el nombre de view y dentro de él colocamos a MainActivity, OnClickListener e ResultAdapter.
+- Comenzamos con una primera versión, definiendo todos los métodos que van a ser despachados desde el presentador.
+- En getEvents() tenemos la llamada a la base de datos, pero eso ya fue delegado al repositorio; sin embargo, tiene que haber un flujo de trabajo donde la vista se conecte al presentador, este a su vez al modelo y haya un flujo de trabajo inverso ya con la respuesta.
+- Entonces haremos las respuestas a las que tiene que reaccionar la vista. Una vez que consultamos los eventos, pasan las siguientes acciones:
+  - Si se obtiene un resultado exitoso, el evento es añadido al adaptador. Se crea una función add que recibe un evento de tipo `SportEvent.ResultSuccess`.
+  - Cuando el swipe es configurado, lo primero que se hace es limpiar el adaptador, luego consultar los eventos (`getEvents()`) y finalmente volver a hacer visible el botón para la publicidad. Se crea otra función llamada `clearAdapter` que ejecuta la orden de limpiar el adapter (`adapter.clear()`).
+  - Para controlar la visibilidad del botón de publicidad se crea un nuevo método llamado `showAdUI()`, que recibe `isVisible: Boolean` y hace una validación para mostrar u ocultar el botón según sea `true` o `false`.
+  - Para mostrar si se está o no refrescando, con la animación de swipe (`setupClicks()`), se crea una función llamada `showProgress`, que recibe `isVisible: Boolean`.
+  - Cuando tenemos un error se muestra un mensaje de tipo `Snackbar` que recibe un mensaje de tipo `String`: `Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()`.
+  - Cuando recibimos y guardamos una publicidad/evento, se muestra un mensaje en un Toast. Esto se coloca en un método llamado `showToast` que recibe un mensaje de tipo `String` y será disparado por el presentador: `Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()`.
+- Aún falta implementar adecuaciones que dependen de que el presentador esté configurado.
+
 
 Integración y flujo
 -------------------
@@ -57,17 +69,22 @@ Integración y flujo
 
 Configuración adicional
 -----------------------
-- Habilitar viewBinding en module: build.gradle (android { viewBinding { enabled true } }).
+- Habilitar viewBinding en `module: build.gradle` (android { viewBinding { enabled true } }).
 - Añadir dependencia de SwipeRefreshLayout en build.gradle: implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
 Cómo ejecutar
 -------------
 1. Abrir proyecto en Android Studio.
-2. Sincronizar Gradle.
+2. sincronizar Gradle.
 3. Ejecutar en emulador o dispositivo.
 
 Notas finales
 -------------
-Esta implementación traslada la lógica desde la Vista al Repository y Presenter para mantener un flujo limpio y testeable. El Presenter toma las decisiones clave del flujo —éste es el punto central de MVP en Android— mientras la Vista queda despojada de lógica.
+Esta implementación traslada la lógica desde la Vista al Repository y Presenter para mantener un flujo limpio y testeable.
+El Presenter toma las decisiones clave del flujo —este es el punto central de MVP en Android— mientras la Vista queda despojada de lógica.
+
+Importante:
+------------------
+- La mayoría de las arquitecturas llevan el orden de trabajar en su mismo nombre, por ejemplo: MVP: Model - View - Presentación.
 
 Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>

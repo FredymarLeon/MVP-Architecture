@@ -1,4 +1,4 @@
-package com.fredymarleon.mvparchitecture.mainModule
+package com.fredymarleon.mvparchitecture.mainModule.view
 
 import android.annotation.SuppressLint
 import android.content.Context
