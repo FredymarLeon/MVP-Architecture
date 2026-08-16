@@ -1,14 +1,10 @@
 package com.fredymarleon.mvparchitecture.presenter
 
 import android.util.Log
-import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import com.fredymarleon.mvparchitecture.EventBus
 import com.fredymarleon.mvparchitecture.SportEvent
 import com.fredymarleon.mvparchitecture.mainModule.model.MainRepository
 import com.fredymarleon.mvparchitecture.mainModule.view.MainActivity
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
