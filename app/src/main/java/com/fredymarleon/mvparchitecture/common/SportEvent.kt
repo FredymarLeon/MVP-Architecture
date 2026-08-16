@@ -1,4 +1,6 @@
-package com.fredymarleon.mvparchitecture
+package com.fredymarleon.mvparchitecture.common
+
+import com.fredymarleon.mvparchitecture.R
 
 sealed class SportEvent {
     data class ResultSuccess(

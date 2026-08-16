@@ -15,6 +15,9 @@ Qué se recicla del proyecto Event-Bus-Pattern
 --------------------------------------------
 Se reutilizan clases, layouts y recursos: OnClickListener, ResultAdapter, DataBase.kt, EventBus, SportEvent, layouts, iconos, dimens y strings. También se tomarán métodos de MainActivity: setupAdapter(), setupRecyclerView(), setupSwipeRefresh(), setupClicks().
 
+
+## Diagrama MVP
+
 Estructura propuesta
 --------------------
 - \app
@@ -81,6 +84,7 @@ Integración y flujo
 3. Repository obtiene datos y publica eventos con publishEventRepository.
 4. Presenter (suscriptor) recibe respuesta y actualiza la Vista.
 5. Acciones UI (guardar, registrar anuncio, cerrar anuncio) se envían al Presenter, que llama al Repository.
+6. Unir las 3 capas (modelo, vista, presentador): Modelo con el patrón de repositorio, la vista acoplada a la capa view y el centro de mando (presentador).
 
 Configuración adicional
 -----------------------

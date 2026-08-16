@@ -9,11 +9,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fredymarleon.mvparchitecture.SportEvent
+import com.fredymarleon.mvparchitecture.common.SportEvent
 import com.fredymarleon.mvparchitecture.databinding.ActivityMainBinding
 import com.fredymarleon.mvparchitecture.presenter.MainPresenter
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity(), OnClickListener {
 
@@ -131,7 +133,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         adapter.clear()
     }
 
-    fun showAdUI(isVisible: Boolean) {
+    suspend fun showAdUI(isVisible: Boolean) = withContext(Dispatchers.Main) {
         binding.btnAd.isVisible = isVisible
     }
 
@@ -139,7 +141,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         binding.srlResults.isRefreshing = isVisible
     }
 
-    fun showToast(msg: String) {
+    suspend fun showToast(msg: String) = withContext(Dispatchers.Main) {
         Toast.makeText(this@MainActivity, msg, Toast.LENGTH_LONG).show()
     }
 

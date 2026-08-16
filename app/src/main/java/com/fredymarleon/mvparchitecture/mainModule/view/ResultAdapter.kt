@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.fredymarleon.mvparchitecture.R
-import com.fredymarleon.mvparchitecture.SportEvent
+import com.fredymarleon.mvparchitecture.common.SportEvent
 import com.fredymarleon.mvparchitecture.databinding.ItemEventBinding
 
 

@@ -1,10 +1,10 @@
 package com.fredymarleon.mvparchitecture.mainModule.model
 
-import com.fredymarleon.mvparchitecture.EventBus
-import com.fredymarleon.mvparchitecture.SportEvent
-import com.fredymarleon.mvparchitecture.getAdEventsInRealtime
-import com.fredymarleon.mvparchitecture.getResultEventsInRealtime
-import com.fredymarleon.mvparchitecture.someTime
+import com.fredymarleon.mvparchitecture.common.EventBus
+import com.fredymarleon.mvparchitecture.common.SportEvent
+import com.fredymarleon.mvparchitecture.common.getAdEventsInRealtime
+import com.fredymarleon.mvparchitecture.common.getResultEventsInRealtime
+import com.fredymarleon.mvparchitecture.common.someTime
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 

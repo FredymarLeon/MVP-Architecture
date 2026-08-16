@@ -1,4 +1,4 @@
-package com.fredymarleon.mvparchitecture
+package com.fredymarleon.mvparchitecture.common
 
 import kotlin.random.Random
 

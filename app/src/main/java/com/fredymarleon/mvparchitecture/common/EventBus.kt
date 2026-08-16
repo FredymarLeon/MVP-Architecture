@@ -1,4 +1,4 @@
-package com.fredymarleon.mvparchitecture
+package com.fredymarleon.mvparchitecture.common
 
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableSharedFlow
