@@ -41,6 +41,21 @@ Capa Presentador
 - El Presentador será el suscriptor de EventBus y el intermediario entre Vista y Repositorio.
 - Recibe comandos de la Vista y solicita al Repository las operaciones (getEvents, saveResult, registerAd, closeAd).
 - Centraliza decisiones de flujo (cuándo refrescar, mostrar loaders, manejar errores y navegación).
+- Esta capa es la clave dentro de esta arquitectura, ella va a funcionar como el cerebro de todo.
+- Aquí es necesario hacer un llamado a la vista y al repositorio, que sería el modelo; así como las inyecciones de dependencias.
+- En el módulo fue creada una nueva carpeta llamada `presenter` y dentro de ella una clase de Kotlin llamada `MainPresenter`.
+- Para inyectar la vista, esta es recibida en el constructor de la clase como una variable privada, en este caso, de tipo `MainActivity`.
+- Luego es definida una variable global privada para el repositorio y una coroutine.
+- Creada una función pública, que será visible desde la vista, llamada `onCreate()`, en la que es inicializada la coroutine.
+- Se crea una función para poder hacer la suscripción y estar atentos a EventBus, llamada `onEvent()`.
+- La tercera función `onDestroy()`, en la que es cancelada la `coroutine` para que se liberen los recursos.
+- Después de esto, se crean todas las funciones que van a ser consumidas/llamadas desde la vista y que se van a conectar con el repositorio
+en la mayoría de los casos, porque también podría darse casos en donde simplemente aquí se pueda ejecutar una lógica. En este caso para:
+refrescar, conseguir nuevos eventos, registrar que se hizo click en la publicidad y también cerrarla; guardar cuando se hace click a un elemento de la lista.
+- Así como el método de la suscripción que es inicializado con `onCreate()`.
+
+Este presenter actúa como punto central de coordinación entre la vista y el modelo: la vista le envía eventos o acciones, y el presentador
+decide si invoca al repositorio, publica o consume eventos, o ejecuta lógica auxiliar antes de comunicar el resultado de vuelta a la UI.
 
 Capa Vista (Activity / Fragment)
 -------------------------------
