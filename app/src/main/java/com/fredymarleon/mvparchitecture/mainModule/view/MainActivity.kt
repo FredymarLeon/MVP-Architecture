@@ -58,9 +58,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     private fun setupSwipeRefresh() {
         binding.srlResults.setOnRefreshListener {
-            //adapter.clear()
-            //getEvents()
-            //binding.btnAd.isVisible = true
             lifecycleScope.launch {
                 presenter.refresh()
             }
@@ -72,17 +69,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         binding.btnAd.run {
             setOnClickListener {
                 lifecycleScope.launch {
-                    //binding.srlResults.isRefreshing = true
-//                    val events = getAdEventsInRealtime()
-//                    EventBus.instance().publishEvent(events.first())
                     presenter.registerAd()
                 }
             }
-            setOnLongClickListener { view ->
+            setOnLongClickListener {
                 lifecycleScope.launch {
-                    // binding.srlResults.isRefreshing = true
-//                    EventBus.instance().publishEvent(SportEvent.CloseAdEvent)
-//                    view.isVisible = false
                     presenter.closedAd()
                 }
                 true
@@ -90,20 +81,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-//    private fun getEvents() {
-//        lifecycleScope.launch {
-////            val events = getResultEventsInRealtime()
-////            events.forEach { event ->
-////                delay(someTime().milliseconds)
-////                EventBus.instance().publishEvent(event)
-////            }
-//        }
-//    }
-
     override fun onStart() {
         super.onStart()
-        // binding.srlResults.isRefreshing = true
-        //getEvents()
         lifecycleScope.launch { presenter.getEvents() }
     }
 
@@ -113,10 +92,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     }
 
     override fun onClick(result: SportEvent.ResultSuccess) {
-        //binding.srlResults.isRefreshing = true
         lifecycleScope.launch {
-            // EventBus.instance().publishEvent(SportEvent.SaveEvent)
-            // SportService.instance().saveResult(result)
             presenter.saveResult(result)
         }
     }
