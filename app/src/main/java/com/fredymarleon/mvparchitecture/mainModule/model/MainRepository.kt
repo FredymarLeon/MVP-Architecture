@@ -18,7 +18,12 @@ class MainRepository {
     }
 
     suspend fun saveResult(result: SportEvent.ResultSuccess) {
-        publishEventRepository(SportEvent.SaveEvent)
+        val response = if (result.isWarning) {
+            SportEvent.ResultError(30, "Error al guardar.")
+        } else {
+            SportEvent.SaveEvent
+        }
+        publishEventRepository(response)
     }
 
     suspend fun registerAd() {

@@ -30,7 +30,7 @@ class MainPresenter(private val view: MainActivity) {
         view.showAdUI(true)
     }
 
-    private suspend fun getEvents() {
+    suspend fun getEvents() {
         view.showProgress(true)
         repository.getEvents()
     }
@@ -39,7 +39,7 @@ class MainPresenter(private val view: MainActivity) {
         repository.registerAd()
     }
 
-    suspend fun closed() {
+    suspend fun closedAd() {
         repository.closedAd()
     }
 
